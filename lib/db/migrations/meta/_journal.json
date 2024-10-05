@@ -1,1 +1,20 @@
-{"version":"7","dialect":"postgresql","entries":[{"idx":0,"version":"7","when":1719997972944,"tag":"0000_yielding_bloodaxe","breakpoints":true}]}
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1719997972944,
+      "tag": "0000_yielding_bloodaxe",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1728164617815,
+      "tag": "0001_fancy_stardust",
+      "breakpoints": true
+    }
+  ]
+}

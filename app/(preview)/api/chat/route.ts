@@ -1,7 +1,7 @@
 import { createResource } from "@/lib/actions/resources";
 import { findRelevantContent } from "@/lib/ai/embedding";
 import { openai } from "@ai-sdk/openai";
-import { convertToCoreMessages, generateObject, streamText, tool } from "ai";
+import { convertToCoreMessages, generateObject, LanguageModelV1, streamText, tool } from "ai";
 import { z } from "zod";
 
 // Allow streaming responses up to 30 seconds
@@ -11,11 +11,11 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const result = await streamText({
-    model: openai("gpt-4o"),
+    model: openai('gpt-4o') as LanguageModelV1,
     messages: convertToCoreMessages(messages),
     system: `You are an expert astronomer assistant specialized in planetary orbital data.
     You have the following Keplerian orbital data and accuracy information for the planets in the Solar System, extracted from tables valid for different time intervals.
-    Your purpose is to answer any questions related to space, planets, and the provided data with detailed and descriptive explanations.
+    Your purpose is to answer any questions related to space, planets, and the provided data with concise but accurate explanations. Ask if the user would like more information.
     Use the tools provided to retrieve information from your knowledge base.
     When answering questions, ensure your responses are long, informative, and focused on the topics of space and planets.
     If a user presents new information about space or planets, use the addResource tool to store it.
@@ -30,8 +30,9 @@ export async function POST(req: Request) {
     `,
     tools: {
       addResource: tool({
-        description: `Add planetary or space-related resources to your knowledge base.
-          If the user provides new information about space or planets, use this tool without asking for confirmation.`,
+        // description: `Add planetary or space-related resources to your knowledge base.
+        //   If the user provides new information about space or planets, use this tool without asking for confirmation.`,
+        description: `Add planetary or space-related resources to your knowledge base, use this tool without asking for confirmation.`,
         parameters: z.object({
           content: z
             .string()
@@ -72,7 +73,7 @@ export async function POST(req: Request) {
         }),
         execute: async ({ query }) => {
           const { object } = await generateObject({
-            model: openai("gpt-4o"),
+            model: openai('gpt-4o') as LanguageModelV1,
             system:
               "You are a query understanding assistant specialized in astronomy. Analyze the user's query and generate similar questions related to space and planets.",
             schema: z.object({
