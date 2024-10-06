@@ -1,9 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":["/turbopack/[project]/app/three/page.js"],"sourcesContent":["import ThreeScene from \"../components/ThreeScene\";\n\nexport default function ThreePage() {\n  return (\n    <div style={{ width: \"100vw\", height: \"100vh\" }}>\n      <ThreeScene />\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;;;;AAEe,SAAS;IACtB,qBACE,wPAAC;QAAI,OAAO;YAAE,OAAO;YAAS,QAAQ;QAAQ;kBAC5C,cAAA,wPAAC,+HAAA,CAAA,UAAU;;;;;;;;;;AAGjB"}},
-    {"offset": {"line": 30, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
-    {"offset": {"line": 41, "column": 0}, "map": {"version":3,"sources":["/turbopack/[project]/.next-internal/server/app/three/page/actions.js"],"sourcesContent":["__turbopack_export_value__({\n});"],"names":[],"mappings":"AAAA,2BAA2B,CAC3B"}},
-    {"offset": {"line": 42, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}
