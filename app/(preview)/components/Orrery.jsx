@@ -59,8 +59,16 @@ const Orrery = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     mountRef.current.appendChild(renderer.domElement);
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     camera.position.set(0, -400, 100);
 
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(0, 0, 10).normalize();
+        scene.add(directionalLight);
+=======
+=======
+>>>>>>> Stashed changes
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     directionalLight.position.set(0, 0, 10).normalize();
     scene.add(directionalLight);
@@ -108,8 +116,16 @@ const Orrery = () => {
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
     controls.enableZoom = true;
-    controls.minDistance = 25;
-    controls.maxDistance = 2500;
+    controls.minDistance = 25;  // Minimum zoom distance (how close you can zoom in)
+    controls.maxDistance = 2500; // Maximum zoom distance (how far you can zoom out)
+    controlsRef.current = controls;
+
+    camera.position.set(0, -400, 100);
+    controls.update();
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
     const planets = [];
 
