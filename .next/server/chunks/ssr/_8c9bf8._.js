@@ -455,8 +455,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/future/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/three/build/three.module.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$examples$2f$jsm$2f$controls$2f$OrbitControls$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/three/examples/jsm/controls/OrbitControls.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$preview$292f$components$2f$PreviewCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/(preview)/components/PreviewCard.tsx [app-ssr] (ecmascript)");
 "__TURBOPACK__ecmascript__hoisting__location__";
 "use client";
+;
 ;
 ;
 ;
@@ -480,15 +482,15 @@ const Orrery = ()=>{
         moon: 0.27
     };
     const cometTextures = [
-        '/textures/comet1.jpg',
-        '/textures/comet2.jpg',
-        '/textures/comet3.jpg',
-        '/textures/comet4.jpg'
+        "/textures/comet1.jpg",
+        "/textures/comet2.jpg",
+        "/textures/comet3.jpg",
+        "/textures/comet4.jpg"
     ];
     const slider = 5; // Number of planets to show
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        fetch('/orbitalData.json').then((response)=>response.json()).then((data)=>setOrbitalData(data.slice(0, slider + 8)))//.then((data) => setOrbitalData(data))
-        .catch((error)=>console.error('Error fetching data:', error));
+        fetch("/orbitalData.json").then((response)=>response.json()).then((data)=>setOrbitalData(data.slice(0, slider + 8)))//.then((data) => setOrbitalData(data))
+        .catch((error)=>console.error("Error fetching data:", error));
     }, []);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if (orbitalData.length === 0) return;
@@ -509,7 +511,7 @@ const Orrery = ()=>{
         const createStarfieldBackground = ()=>{
             const starGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.SphereGeometry(7500, 64, 64);
             const starMaterial = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MeshBasicMaterial({
-                map: new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.TextureLoader().load('/textures/8k_stars.jpg'),
+                map: new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.TextureLoader().load("/textures/8k_stars.jpg"),
                 side: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.BackSide
             });
             const starfield = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Mesh(starGeometry, starMaterial);
@@ -518,7 +520,7 @@ const Orrery = ()=>{
         const starfield = createStarfieldBackground();
         scene.add(starfield);
         // Create the sun
-        const sunTexture = loadTexture('/textures/sun.jpg'); // Load the sun texture
+        const sunTexture = loadTexture("/textures/sun.jpg"); // Load the sun texture
         const sunGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.SphereGeometry(50, 64, 64); // Create a sphere geometry for the sun
         // Create the sun material with emissive properties
         const sunMaterial = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MeshStandardMaterial({
@@ -573,14 +575,14 @@ const Orrery = ()=>{
             orbitGroup.rotation.x = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MathUtils.degToRad(i_deg || 0);
             scene.add(orbitGroup);
             let texture;
-            if (object_name.includes('Earth')) texture = loadTexture('/textures/earth.jpg');
-            else if (object_name.includes('Mars')) texture = loadTexture('/textures/mars.jpg');
-            else if (object_name.includes('Jupiter')) texture = loadTexture('/textures/jupiter.jpg');
-            else if (object_name.includes('Mercury')) texture = loadTexture('/textures/mercury.jpg');
-            else if (object_name.includes('Venus')) texture = loadTexture('/textures/venus.jpg');
-            else if (object_name.includes('Uranus')) texture = loadTexture('/textures/uranus.jpg');
-            else if (object_name.includes('Neptune')) texture = loadTexture('/textures/neptune.jpg');
-            else if (object_name.includes('Saturn')) texture = loadTexture('/textures/saturn.jpg');
+            if (object_name.includes("Earth")) texture = loadTexture("/textures/earth.jpg");
+            else if (object_name.includes("Mars")) texture = loadTexture("/textures/mars.jpg");
+            else if (object_name.includes("Jupiter")) texture = loadTexture("/textures/jupiter.jpg");
+            else if (object_name.includes("Mercury")) texture = loadTexture("/textures/mercury.jpg");
+            else if (object_name.includes("Venus")) texture = loadTexture("/textures/venus.jpg");
+            else if (object_name.includes("Uranus")) texture = loadTexture("/textures/uranus.jpg");
+            else if (object_name.includes("Neptune")) texture = loadTexture("/textures/neptune.jpg");
+            else if (object_name.includes("Saturn")) texture = loadTexture("/textures/saturn.jpg");
             else {
                 const randomIndex = Math.floor(Math.random() * cometTextures.length);
                 texture = loadTexture(cometTextures[randomIndex]);
@@ -596,9 +598,9 @@ const Orrery = ()=>{
             scene.add(planet);
             // Add Moon for Earth
             let moon;
-            if (object_name.includes('Earth')) {
-                const moonTexture = loadTexture('/textures/moon.jpg');
-                const moonGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.SphereGeometry(5 * planetSizes['moon'], 32, 32);
+            if (object_name.includes("Earth")) {
+                const moonTexture = loadTexture("/textures/moon.jpg");
+                const moonGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.SphereGeometry(5 * planetSizes["moon"], 32, 32);
                 const moonMaterial = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MeshStandardMaterial({
                     map: moonTexture,
                     metalness: 0.1,
@@ -608,13 +610,13 @@ const Orrery = ()=>{
                 planet.add(moon);
             }
             let saturnRings;
-            if (object_name.includes('planet_Saturn')) {
+            if (object_name.includes("planet_Saturn")) {
                 const ringRadius = 100; // Radius of the torus
                 const tubeRadius = 35; // Thickness of the torus
                 // Create the torus geometry
                 const ringGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.TorusGeometry(ringRadius, tubeRadius, 2, 50000);
                 const ringMaterial = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MeshStandardMaterial({
-                    map: loadTexture('/textures/saturn-rings.png'),
+                    map: loadTexture("/textures/saturn-rings.png"),
                     side: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.DoubleSide,
                     transparent: true
                 });
@@ -647,9 +649,9 @@ const Orrery = ()=>{
                 // Smooth position interpolation
                 const interpolatedPosition = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Vector3().lerpVectors(point1, point2, t);
                 planet.position.copy(interpolatedPosition);
-                planet.position.applyMatrix4(orbitGroup.matrixWorld); // Apply orbital transformations  
+                planet.position.applyMatrix4(orbitGroup.matrixWorld); // Apply orbital transformations
                 planet.rotation.x = 190;
-                if (object_name.includes('planet_Saturn')) {
+                if (object_name.includes("planet_Saturn")) {
                     planet.rotation.y = 0;
                 }
                 planet.rotation.y += 0.01; // Rotate the planet
@@ -674,8 +676,8 @@ const Orrery = ()=>{
         ref: mountRef
     }, void 0, false, {
         fileName: "[project]/app/(preview)/components/Orrery.jsx",
-        lineNumber: 267,
-        columnNumber: 12
+        lineNumber: 306,
+        columnNumber: 10
     }, this);
 };
 const __TURBOPACK__default__export__ = Orrery;
@@ -684,208 +686,6 @@ const __TURBOPACK__default__export__ = Orrery;
 "[project]/app/(preview)/page.tsx [app-ssr] (ecmascript)": (({ r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__ }) => (() => {
 "use strict";
 
-// "use client";
-// import { Input } from "@/components/ui/input";
-// import { Message } from "ai";
-// import { useChat } from "ai/react";
-// import { useEffect, useMemo, useState } from "react";
-// import { AnimatePresence, motion } from "framer-motion";
-// import ReactMarkdown, { Options } from "react-markdown";
-// import React from "react";
-// import ProjectOverview from "@/components/project-overview";
-// import { LoadingIcon } from "@/components/icons";
-// import { cn } from "@/lib/utils";
-// import { toast } from "sonner";
-// import FileUpload from "@/components/fileUpload";
-// import { Button } from "@/components/ui/button";
-// import { MessageCircle, X } from "lucide-react";
-// export default function Chat() {
-//   const [toolCall, setToolCall] = useState<string>();
-//   const { messages, input, handleInputChange, handleSubmit, isLoading } =
-//     useChat({
-//       maxToolRoundtrips: 4,
-//       onToolCall({ toolCall }) {
-//         setToolCall(toolCall.toolName);
-//       },
-//       onError: (error) => {
-//         toast.error("You've been rate limited, please try again later!");
-//       },
-//     });
-//   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-//   const [isChatVisible, setIsChatVisible] = useState<boolean>(false);
-//   useEffect(() => {
-//     if (messages.length > 0) setIsExpanded(true);
-//   }, [messages]);
-//   const currentToolCall = useMemo(() => {
-//     const tools = messages?.slice(-1)[0]?.toolInvocations;
-//     if (tools && toolCall === tools[0].toolName) {
-//       return tools[0].toolName;
-//     } else {
-//       return undefined;
-//     }
-//   }, [toolCall, messages]);
-//   const awaitingResponse = useMemo(() => {
-//     if (
-//       isLoading &&
-//       currentToolCall === undefined &&
-//       messages.slice(-1)[0].role === "user"
-//     ) {
-//       return true;
-//     } else {
-//       return false;
-//     }
-//   }, [isLoading, currentToolCall, messages]);
-//   const userQuery: Message | undefined = messages
-//     .filter((m) => m.role === "user")
-//     .slice(-1)[0];
-//   const lastAssistantMessage: Message | undefined = messages
-//     .filter((m) => m.role !== "user")
-//     .slice(-1)[0];
-//   return (
-//     <div className="min-h-screen w-full dark:bg-neutral-900 relative">
-//       <AnimatePresence>
-//         {isChatVisible && (
-//           <motion.div
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             exit={{ opacity: 0, y: 20 }}
-//             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-//             className="fixed bottom-20 right-4 w-full max-w-[500px] bg-white dark:bg-neutral-800 rounded-lg shadow-lg overflow-hidden"
-//           >
-//             <div className="p-4 flex justify-between items-center border-b dark:border-neutral-700">
-//               <h2 className="text-lg font-semibold dark:text-white">Chat</h2>
-//               <Button
-//                 variant="ghost"
-//                 size="icon"
-//                 onClick={() => setIsChatVisible(false)}
-//               >
-//                 <X className="h-6 w-6" />
-//               </Button>
-//             </div>
-//             <div className="p-4">
-//               <ProjectOverview />
-//               <motion.div
-//                 animate={{
-//                   minHeight: isExpanded ? 200 : 0,
-//                   padding: isExpanded ? 12 : 0,
-//                 }}
-//                 transition={{
-//                   type: "spring",
-//                   bounce: 0.5,
-//                 }}
-//                 className={cn(
-//                   "rounded-lg w-full ",
-//                   isExpanded
-//                     ? "bg-neutral-200 dark:bg-neutral-800"
-//                     : "bg-transparent",
-//                 )}
-//               >
-//                 <div className="flex flex-col w-full justify-between gap-2">
-//                   <form onSubmit={handleSubmit} className="flex space-x-2">
-//                     <Input
-//                       className={`bg-neutral-100 text-base w-full text-neutral-700 dark:bg-neutral-700 dark:placeholder:text-neutral-400 dark:text-neutral-300`}
-//                       minLength={3}
-//                       required
-//                       value={input}
-//                       placeholder={"Ask me anything..."}
-//                       onChange={handleInputChange}
-//                     />
-//                   </form>
-//                   <motion.div
-//                     transition={{
-//                       type: "spring",
-//                     }}
-//                     className="min-h-fit flex flex-col gap-2"
-//                   >
-//                     <AnimatePresence>
-//                       {awaitingResponse || currentToolCall ? (
-//                         <div className="px-2 min-h-12">
-//                           <div className="dark:text-neutral-400 text-neutral-500 text-sm w-fit mb-1">
-//                             {userQuery?.content}
-//                           </div>
-//                           <Loading tool={currentToolCall} />
-//                         </div>
-//                       ) : lastAssistantMessage ? (
-//                         <div className="px-2 min-h-12">
-//                           <div className="dark:text-neutral-400 text-neutral-500 text-sm w-fit mb-1">
-//                             {userQuery?.content}
-//                           </div>
-//                           <AssistantMessage message={lastAssistantMessage} />
-//                         </div>
-//                       ) : null}
-//                     </AnimatePresence>
-//                   </motion.div>
-//                 </div>
-//               </motion.div>
-//             </div>
-//           </motion.div>
-//         )}
-//       </AnimatePresence>
-//       <Button
-//         className="fixed bottom-4 right-4 rounded-full shadow-lg"
-//         size="icon"
-//         onClick={() => setIsChatVisible(!isChatVisible)}
-//       >
-//         <MessageCircle className="h-6 w-6" />
-//       </Button>
-//     </div>
-//   );
-// }
-// const AssistantMessage = ({ message }: { message: Message | undefined }) => {
-//   if (message === undefined) return "HELLO";
-//   return (
-//     <AnimatePresence mode="wait">
-//       <motion.div
-//         key={message.id}
-//         initial={{ opacity: 0 }}
-//         animate={{ opacity: 1 }}
-//         exit={{ opacity: 0 }}
-//         className="whitespace-pre-wrap font-mono anti text-sm text-neutral-800 dark:text-neutral-200 overflow-hidden"
-//         id="markdown"
-//       >
-//         <MemoizedReactMarkdown
-//           className={"max-h-72 overflow-y-scroll no-scrollbar-gutter"}
-//         >
-//           {message.content}
-//         </MemoizedReactMarkdown>
-//       </motion.div>
-//     </AnimatePresence>
-//   );
-// };
-// const Loading = ({ tool }: { tool?: string }) => {
-//   const toolName =
-//     tool === "getInformation"
-//       ? "Getting information"
-//       : tool === "addResource"
-//         ? "Adding information"
-//         : "Thinking";
-//   return (
-//     <AnimatePresence mode="wait">
-//       <motion.div
-//         initial={{ opacity: 0 }}
-//         animate={{ opacity: 1 }}
-//         exit={{ opacity: 0 }}
-//         transition={{ type: "spring" }}
-//         className="overflow-hidden flex justify-start items-center"
-//       >
-//         <div className="flex flex-row gap-2 items-center">
-//           <div className="animate-spin dark:text-neutral-400 text-neutral-500">
-//             <LoadingIcon />
-//           </div>
-//           <div className="text-neutral-500 dark:text-neutral-400 text-sm">
-//             {toolName}...
-//           </div>
-//         </div>
-//       </motion.div>
-//     </AnimatePresence>
-//   );
-// };
-// const MemoizedReactMarkdown: React.FC<Options> = React.memo(
-//   ReactMarkdown,
-//   (prevProps, nextProps) =>
-//     prevProps.children === nextProps.children &&
-//     prevProps.className === nextProps.className,
-// );
 __turbopack_esm__({
     "default": ()=>Chat
 });
@@ -904,8 +704,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageCircle$3e$__ = __turbopack_import__("[project]/node_modules/lucide-react/dist/esm/icons/message-circle.js [app-ssr] (ecmascript) <export default as MessageCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_import__("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-ssr] (ecmascript) <export default as X>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$preview$292f$components$2f$Orrery$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/(preview)/components/Orrery.jsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$preview$292f$components$2f$PreviewCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/(preview)/components/PreviewCard.tsx [app-ssr] (ecmascript)");
 "__TURBOPACK__ecmascript__hoisting__location__";
 "use client";
+;
 ;
 ;
 ;
@@ -994,7 +796,7 @@ function Chat() {
                                     children: "Chat"
                                 }, void 0, false, {
                                     fileName: "[project]/app/(preview)/page.tsx",
-                                    lineNumber: 298,
+                                    lineNumber: 80,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -1005,18 +807,18 @@ function Chat() {
                                         className: "h-6 w-6"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(preview)/page.tsx",
-                                        lineNumber: 304,
+                                        lineNumber: 86,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/(preview)/page.tsx",
-                                    lineNumber: 299,
+                                    lineNumber: 81,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/(preview)/page.tsx",
-                            lineNumber: 297,
+                            lineNumber: 79,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1024,7 +826,7 @@ function Chat() {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$project$2d$overview$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/app/(preview)/page.tsx",
-                                    lineNumber: 308,
+                                    lineNumber: 90,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1052,12 +854,12 @@ function Chat() {
                                                     onChange: handleInputChange
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(preview)/page.tsx",
-                                                    lineNumber: 327,
+                                                    lineNumber: 109,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(preview)/page.tsx",
-                                                lineNumber: 326,
+                                                lineNumber: 108,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1074,20 +876,20 @@ function Chat() {
                                                                 children: userQuery?.content
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(preview)/page.tsx",
-                                                                lineNumber: 345,
+                                                                lineNumber: 127,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Loading, {
                                                                 tool: currentToolCall
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(preview)/page.tsx",
-                                                                lineNumber: 348,
+                                                                lineNumber: 130,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/(preview)/page.tsx",
-                                                        lineNumber: 344,
+                                                        lineNumber: 126,
                                                         columnNumber: 25
                                                     }, this) : lastAssistantMessage ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "px-2 min-h-12",
@@ -1097,58 +899,58 @@ function Chat() {
                                                                 children: userQuery?.content
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(preview)/page.tsx",
-                                                                lineNumber: 352,
+                                                                lineNumber: 134,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(AssistantMessage, {
                                                                 message: lastAssistantMessage
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(preview)/page.tsx",
-                                                                lineNumber: 355,
+                                                                lineNumber: 137,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/(preview)/page.tsx",
-                                                        lineNumber: 351,
+                                                        lineNumber: 133,
                                                         columnNumber: 25
                                                     }, this) : null
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(preview)/page.tsx",
-                                                    lineNumber: 342,
+                                                    lineNumber: 124,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(preview)/page.tsx",
-                                                lineNumber: 336,
+                                                lineNumber: 118,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(preview)/page.tsx",
-                                        lineNumber: 325,
+                                        lineNumber: 107,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/(preview)/page.tsx",
-                                    lineNumber: 309,
+                                    lineNumber: 91,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/(preview)/page.tsx",
-                            lineNumber: 307,
+                            lineNumber: 89,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/(preview)/page.tsx",
-                    lineNumber: 290,
+                    lineNumber: 72,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/(preview)/page.tsx",
-                lineNumber: 288,
+                lineNumber: 70,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -1159,24 +961,29 @@ function Chat() {
                     className: "h-6 w-6"
                 }, void 0, false, {
                     fileName: "[project]/app/(preview)/page.tsx",
-                    lineNumber: 372,
+                    lineNumber: 153,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/(preview)/page.tsx",
-                lineNumber: 367,
+                lineNumber: 148,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$preview$292f$components$2f$Orrery$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/(preview)/page.tsx",
-                lineNumber: 375,
+                lineNumber: 155,
                 columnNumber: 7
             }, this),
-            " "
+            " ",
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$preview$292f$components$2f$PreviewCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+                fileName: "[project]/app/(preview)/page.tsx",
+                lineNumber: 156,
+                columnNumber: 7
+            }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/(preview)/page.tsx",
-        lineNumber: 287,
+        lineNumber: 69,
         columnNumber: 5
     }, this);
 }
@@ -1201,17 +1008,17 @@ const AssistantMessage = ({ message })=>{
                 children: message.content
             }, void 0, false, {
                 fileName: "[project]/app/(preview)/page.tsx",
-                lineNumber: 393,
+                lineNumber: 174,
                 columnNumber: 9
             }, this)
         }, message.id, false, {
             fileName: "[project]/app/(preview)/page.tsx",
-            lineNumber: 385,
+            lineNumber: 166,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/(preview)/page.tsx",
-        lineNumber: 384,
+        lineNumber: 165,
         columnNumber: 5
     }, this);
 };
@@ -1240,12 +1047,12 @@ const Loading = ({ tool })=>{
                         className: "animate-spin dark:text-neutral-400 text-neutral-500",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$icons$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["LoadingIcon"], {}, void 0, false, {
                             fileName: "[project]/app/(preview)/page.tsx",
-                            lineNumber: 422,
+                            lineNumber: 203,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/(preview)/page.tsx",
-                        lineNumber: 421,
+                        lineNumber: 202,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1256,23 +1063,23 @@ const Loading = ({ tool })=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/(preview)/page.tsx",
-                        lineNumber: 424,
+                        lineNumber: 205,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(preview)/page.tsx",
-                lineNumber: 420,
+                lineNumber: 201,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/(preview)/page.tsx",
-            lineNumber: 413,
+            lineNumber: 194,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/(preview)/page.tsx",
-        lineNumber: 412,
+        lineNumber: 193,
         columnNumber: 5
     }, this);
 };

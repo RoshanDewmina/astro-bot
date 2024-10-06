@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["/turbopack/[project]/.next-internal/server/app/_not-found/page/actions.js"],"sourcesContent":["__turbopack_export_value__({\n});"],"names":[],"mappings":"AAAA,2BAA2B,CAC3B"}},
+    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

@@ -1,4 +1,6 @@
 {
   "/(preview)/page": "app/(preview)/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/(preview)/api/chat/route": "app/(preview)/api/chat/route.js"
 }
