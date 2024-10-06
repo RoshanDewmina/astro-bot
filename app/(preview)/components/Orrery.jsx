@@ -14,6 +14,8 @@ const loadTexture = (path) => {
 
 const Orrery = () => {
   const mountRef = useRef(null);
+  const cameraRef = useRef(); // Added ref for camera
+  const controlsRef = useRef();
   const [orbitalData, setOrbitalData] = useState([]);
   const [selectedPlanet, setSelectedPlanet] = useState(null); // Manage the selected planet
   const [isCardVisible, setCardVisible] = useState(false); // Control card visibility
@@ -55,20 +57,13 @@ const Orrery = () => {
       0.1,
       10000
     );
+    cameraRef.current = camera;
+    camera.position.set(0, -400, 100);
+
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     mountRef.current.appendChild(renderer.domElement);
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    camera.position.set(0, -400, 100);
-
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(0, 0, 10).normalize();
-        scene.add(directionalLight);
-=======
-=======
->>>>>>> Stashed changes
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     directionalLight.position.set(0, 0, 10).normalize();
     scene.add(directionalLight);
@@ -122,10 +117,6 @@ const Orrery = () => {
 
     camera.position.set(0, -400, 100);
     controls.update();
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
     const planets = [];
 
@@ -349,6 +340,7 @@ const Orrery = () => {
     animate();
 
     return () => {
+      controls.dispose();
       window.removeEventListener("click", onMouseClick);
       if (mountRef.current) {
         mountRef.current.removeChild(renderer.domElement);
@@ -365,10 +357,20 @@ const Orrery = () => {
     createPlanets(updatedPlanets);
   };
 
+  const resetCamera = () => {
+    console.log("Camera Reset");
+    if (cameraRef.current && controlsRef.current) {
+        cameraRef.current.position.set(0, -400, 100); // Reset to your default position
+        cameraRef.current.lookAt(0, 0, 0); // Ensure camera looks at the center
+        controlsRef.current.reset(); // Reset the OrbitControls
+    }
+};
+
   return (
     <div>
       <div ref={mountRef} style={{ width: "100%", height: "100vh" }}></div>
       <div style={{ position: "absolute", top: 20, left: 20, zIndex: 10 }}>
+      <button onClick={resetCamera}>Reset Camera</button>
         <label style={{ color: "white" }}>
           Number of Planets/Comets: {sliderValue}
         </label>
