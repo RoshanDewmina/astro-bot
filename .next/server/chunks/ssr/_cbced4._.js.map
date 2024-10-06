@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":["/turbopack/[project]/app/components/ThreeScene.jsx/proxy.js"],"sourcesContent":["import { registerClientReference } from \"react-server-dom-turbopack/server.edge\";\nexport default registerClientReference(\n    function() { throw new Error(\"Attempted to call the default export of [project]/app/components/ThreeScene.jsx from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.\"); },\n    \"[project]/app/components/ThreeScene.jsx\",\n    \"default\",\n);\n"],"names":[],"mappings":";;;;;;uCACe,CAAA,GAAA,+PAAA,CAAA,0BAAuB,AAAD,EACjC;IAAa,MAAM,IAAI,MAAM;AAA6Q,GAC1S,2CACA"}},
+    {"offset": {"line": 14, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 19, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":""}},
+    {"offset": {"line": 24, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 29, "column": 0}, "map": {"version":3,"sources":["/turbopack/[project]/app/three/page.jsx"],"sourcesContent":["import ThreeScene from \"../components/ThreeScene\";\n\nexport default function ThreePage() {\n  return (\n    <div style={{ width: \"100vw\", height: \"100vh\" }}>\n      <ThreeScene />\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;;;;AAEe,SAAS;IACtB,qBACE,wPAAC;QAAI,OAAO;YAAE,OAAO;YAAS,QAAQ;QAAQ;kBAC5C,cAAA,wPAAC,gIAAA,CAAA,UAAU;;;;;;;;;;AAGjB"}},
+    {"offset": {"line": 54, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 65, "column": 0}, "map": {"version":3,"sources":["/turbopack/[project]/.next-internal/server/app/three/page/actions.js"],"sourcesContent":["__turbopack_export_value__({\n});"],"names":[],"mappings":"AAAA,2BAA2B,CAC3B"}},
+    {"offset": {"line": 66, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

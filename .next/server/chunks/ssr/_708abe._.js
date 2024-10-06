@@ -448,176 +448,6 @@ const LoadingIcon = ()=>{
 "[project]/app/(preview)/page.tsx [app-ssr] (ecmascript)": (({ r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__ }) => (() => {
 "use strict";
 
-// "use client";
-// import { Input } from "@/components/ui/input";
-// import { Message } from "ai";
-// import { useChat } from "ai/react";
-// import { useEffect, useMemo, useState } from "react";
-// import { AnimatePresence, motion } from "framer-motion";
-// import ReactMarkdown, { Options } from "react-markdown";
-// import React from "react";
-// import ProjectOverview from "@/components/project-overview";
-// import { LoadingIcon } from "@/components/icons";
-// import { cn } from "@/lib/utils";
-// import { toast } from "sonner";
-// import FileUpload from "@/components/fileUpload";
-// export default function Chat() {
-//   const [toolCall, setToolCall] = useState<string>();
-//   const { messages, input, handleInputChange, handleSubmit, isLoading } =
-//     useChat({
-//       maxToolRoundtrips: 4,
-//       onToolCall({ toolCall }) {
-//         setToolCall(toolCall.toolName);
-//       },
-//       onError: (error) => {
-//         toast.error("You've been rate limited, please try again later!");
-//       },
-//     });
-//   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-//   useEffect(() => {
-//     if (messages.length > 0) setIsExpanded(true);
-//   }, [messages]);
-//   const currentToolCall = useMemo(() => {
-//     const tools = messages?.slice(-1)[0]?.toolInvocations;
-//     if (tools && toolCall === tools[0].toolName) {
-//       return tools[0].toolName;
-//     } else {
-//       return undefined;
-//     }
-//   }, [toolCall, messages]);
-//   const awaitingResponse = useMemo(() => {
-//     if (
-//       isLoading &&
-//       currentToolCall === undefined &&
-//       messages.slice(-1)[0].role === "user"
-//     ) {
-//       return true;
-//     } else {
-//       return false;
-//     }
-//   }, [isLoading, currentToolCall, messages]);
-//   const userQuery: Message | undefined = messages
-//     .filter((m) => m.role === "user")
-//     .slice(-1)[0];
-//   const lastAssistantMessage: Message | undefined = messages
-//     .filter((m) => m.role !== "user")
-//     .slice(-1)[0];
-//   return (
-//     <div className="flex justify-center items-start sm:pt-16 min-h-screen w-full dark:bg-neutral-900 px-4 md:px-0 py-4">
-//       <div className="flex flex-col items-center w-full max-w-[500px]">
-//       <ProjectOverview />
-//       <motion.div
-//           animate={{
-//             minHeight: isExpanded ? 200 : 0,
-//             padding: isExpanded ? 12 : 0,
-//           }}
-//           transition={{
-//             type: "spring",
-//             bounce: 0.5,
-//           }}
-//           className={cn(
-//             "rounded-lg w-full ",
-//             isExpanded
-//               ? "bg-neutral-200 dark:bg-neutral-800"
-//               : "bg-transparent",
-//           )}
-//         >
-//           <div className="flex flex-col w-full justify-between gap-2">
-//             <form onSubmit={handleSubmit} className="flex space-x-2">
-//               <Input
-//                 className={`bg-neutral-100 text-base w-full text-neutral-700 dark:bg-neutral-700 dark:placeholder:text-neutral-400 dark:text-neutral-300`}
-//                 minLength={3}
-//                 required
-//                 value={input}
-//                 placeholder={"Ask me anything..."}
-//                 onChange={handleInputChange}
-//               />
-//             </form>
-//             <motion.div
-//               transition={{
-//                 type: "spring",
-//               }}
-//               className="min-h-fit flex flex-col gap-2"
-//             >
-//               <AnimatePresence>
-//                 {awaitingResponse || currentToolCall ? (
-//                   <div className="px-2 min-h-12">
-//                     <div className="dark:text-neutral-400 text-neutral-500 text-sm w-fit mb-1">
-//                       {userQuery.content}
-//                     </div>
-//                     <Loading tool={currentToolCall} />
-//                   </div>
-//                 ) : lastAssistantMessage ? (
-//                   <div className="px-2 min-h-12">
-//                     <div className="dark:text-neutral-400 text-neutral-500 text-sm w-fit mb-1">
-//                       {userQuery.content}
-//                     </div>
-//                     <AssistantMessage message={lastAssistantMessage} />
-//                   </div>
-//                 ) : null}
-//               </AnimatePresence>
-//             </motion.div>
-//           </div>
-//         </motion.div>
-//       </div>
-//     </div>
-//   );
-// }
-// const AssistantMessage = ({ message }: { message: Message | undefined }) => {
-//   if (message === undefined) return "HELLO";
-//   return (
-//     <AnimatePresence mode="wait">
-//       <motion.div
-//         key={message.id}
-//         initial={{ opacity: 0 }}
-//         animate={{ opacity: 1 }}
-//         exit={{ opacity: 0 }}
-//         className="whitespace-pre-wrap font-mono anti text-sm text-neutral-800 dark:text-neutral-200 overflow-hidden"
-//         id="markdown"
-//       >
-//         <MemoizedReactMarkdown
-//           className={"max-h-72 overflow-y-scroll no-scrollbar-gutter"}
-//         >
-//           {message.content}
-//         </MemoizedReactMarkdown>
-//       </motion.div>
-//     </AnimatePresence>
-//   );
-// };
-// const Loading = ({ tool }: { tool?: string }) => {
-//   const toolName =
-//     tool === "getInformation"
-//       ? "Getting information"
-//       : tool === "addResource"
-//         ? "Adding information"
-//         : "Thinking";
-//   return (
-//     <AnimatePresence mode="wait">
-//       <motion.div
-//         initial={{ opacity: 0 }}
-//         animate={{ opacity: 1 }}
-//         exit={{ opacity: 0 }}
-//         transition={{ type: "spring" }}
-//         className="overflow-hidden flex justify-start items-center"
-//       >
-//         <div className="flex flex-row gap-2 items-center">
-//           <div className="animate-spin dark:text-neutral-400 text-neutral-500">
-//             <LoadingIcon />
-//           </div>
-//           <div className="text-neutral-500 dark:text-neutral-400 text-sm">
-//             {toolName}...
-//           </div>
-//         </div>
-//       </motion.div>
-//     </AnimatePresence>
-//   );
-// };
-// const MemoizedReactMarkdown: React.FC<Options> = React.memo(
-//   ReactMarkdown,
-//   (prevProps, nextProps) =>
-//     prevProps.children === nextProps.children &&
-//     prevProps.className === nextProps.className,
-// );
 __turbopack_esm__({
     "default": ()=>Chat
 });
@@ -724,7 +554,7 @@ function Chat() {
                                     children: "Chat"
                                 }, void 0, false, {
                                     fileName: "[project]/app/(preview)/page.tsx",
-                                    lineNumber: 267,
+                                    lineNumber: 79,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -735,18 +565,18 @@ function Chat() {
                                         className: "h-6 w-6"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(preview)/page.tsx",
-                                        lineNumber: 273,
+                                        lineNumber: 85,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/(preview)/page.tsx",
-                                    lineNumber: 268,
+                                    lineNumber: 80,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/(preview)/page.tsx",
-                            lineNumber: 266,
+                            lineNumber: 78,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -754,7 +584,7 @@ function Chat() {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$project$2d$overview$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/app/(preview)/page.tsx",
-                                    lineNumber: 277,
+                                    lineNumber: 89,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -782,12 +612,12 @@ function Chat() {
                                                     onChange: handleInputChange
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(preview)/page.tsx",
-                                                    lineNumber: 297,
+                                                    lineNumber: 109,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(preview)/page.tsx",
-                                                lineNumber: 296,
+                                                lineNumber: 108,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -804,20 +634,20 @@ function Chat() {
                                                                 children: userQuery?.content
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(preview)/page.tsx",
-                                                                lineNumber: 315,
+                                                                lineNumber: 127,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Loading, {
                                                                 tool: currentToolCall
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(preview)/page.tsx",
-                                                                lineNumber: 318,
+                                                                lineNumber: 130,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/(preview)/page.tsx",
-                                                        lineNumber: 314,
+                                                        lineNumber: 126,
                                                         columnNumber: 25
                                                     }, this) : lastAssistantMessage ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "px-2 min-h-12",
@@ -827,58 +657,58 @@ function Chat() {
                                                                 children: userQuery?.content
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(preview)/page.tsx",
-                                                                lineNumber: 322,
+                                                                lineNumber: 134,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(AssistantMessage, {
                                                                 message: lastAssistantMessage
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/(preview)/page.tsx",
-                                                                lineNumber: 325,
+                                                                lineNumber: 137,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/(preview)/page.tsx",
-                                                        lineNumber: 321,
+                                                        lineNumber: 133,
                                                         columnNumber: 25
                                                     }, this) : null
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/(preview)/page.tsx",
-                                                    lineNumber: 312,
+                                                    lineNumber: 124,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(preview)/page.tsx",
-                                                lineNumber: 306,
+                                                lineNumber: 118,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(preview)/page.tsx",
-                                        lineNumber: 295,
+                                        lineNumber: 107,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/(preview)/page.tsx",
-                                    lineNumber: 279,
+                                    lineNumber: 91,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/(preview)/page.tsx",
-                            lineNumber: 276,
+                            lineNumber: 88,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/(preview)/page.tsx",
-                    lineNumber: 259,
+                    lineNumber: 71,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/(preview)/page.tsx",
-                lineNumber: 257,
+                lineNumber: 69,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -889,18 +719,18 @@ function Chat() {
                     className: "h-6 w-6"
                 }, void 0, false, {
                     fileName: "[project]/app/(preview)/page.tsx",
-                    lineNumber: 342,
+                    lineNumber: 154,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/(preview)/page.tsx",
-                lineNumber: 337,
+                lineNumber: 149,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/(preview)/page.tsx",
-        lineNumber: 256,
+        lineNumber: 68,
         columnNumber: 5
     }, this);
 }
@@ -925,17 +755,17 @@ const AssistantMessage = ({ message })=>{
                 children: message.content
             }, void 0, false, {
                 fileName: "[project]/app/(preview)/page.tsx",
-                lineNumber: 361,
+                lineNumber: 173,
                 columnNumber: 9
             }, this)
         }, message.id, false, {
             fileName: "[project]/app/(preview)/page.tsx",
-            lineNumber: 353,
+            lineNumber: 165,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/(preview)/page.tsx",
-        lineNumber: 352,
+        lineNumber: 164,
         columnNumber: 5
     }, this);
 };
@@ -964,12 +794,12 @@ const Loading = ({ tool })=>{
                         className: "animate-spin dark:text-neutral-400 text-neutral-500",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$icons$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["LoadingIcon"], {}, void 0, false, {
                             fileName: "[project]/app/(preview)/page.tsx",
-                            lineNumber: 390,
+                            lineNumber: 202,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/(preview)/page.tsx",
-                        lineNumber: 389,
+                        lineNumber: 201,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -980,23 +810,23 @@ const Loading = ({ tool })=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/(preview)/page.tsx",
-                        lineNumber: 392,
+                        lineNumber: 204,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(preview)/page.tsx",
-                lineNumber: 388,
+                lineNumber: 200,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/(preview)/page.tsx",
-            lineNumber: 381,
+            lineNumber: 193,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/(preview)/page.tsx",
-        lineNumber: 380,
+        lineNumber: 192,
         columnNumber: 5
     }, this);
 };

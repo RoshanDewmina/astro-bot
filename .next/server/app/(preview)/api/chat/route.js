@@ -1,6 +1,6 @@
 const CHUNK_PUBLIC_PATH = "server/app/(preview)/api/chat/route.js";
 const runtime = require("../../../../chunks/[turbopack]_runtime.js");
-runtime.loadChunk("server/chunks/node_modules_next_dist_1795f1._.js");
+runtime.loadChunk("server/chunks/node_modules_next_51c2dd._.js");
 runtime.loadChunk("server/chunks/node_modules_drizzle-orm_119243._.js");
 runtime.loadChunk("server/chunks/node_modules_zod_lib_index_mjs_a02341._.js");
 runtime.loadChunk("server/chunks/node_modules_tailwind-merge_dist_bundle-mjs_mjs_b78644._.js");
