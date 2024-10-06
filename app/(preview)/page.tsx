@@ -233,7 +233,7 @@ import { toast } from "sonner";
 import FileUpload from "@/components/fileUpload";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, X } from "lucide-react";
-import ThreeScene from "../(preview)/components/ThreeScene"; // Import the ThreeScene component
+import Orrery from "../(preview)/components/Orrery"; // Import the ThreeScene component
 
 export default function Chat() {
   const [toolCall, setToolCall] = useState<string>();
@@ -372,7 +372,7 @@ export default function Chat() {
         <MessageCircle className="h-6 w-6" />
       </Button>
 
-      <ThreeScene /> {/* Add the ThreeScene component here */}
+      <Orrery /> {/* Add the ThreeScene component here */}
     </div>
   );
 }
