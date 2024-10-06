@@ -468,6 +468,7 @@ const loadTexture = (path)=>{
 const Orrery = ()=>{
     const mountRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const [orbitalData, setOrbitalData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [sliderValue, setSliderValue] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(5); // Slider value for the number of planets/comets to show
     const planetSizes = {
         planet_Mercury: 0.38,
         planet_Venus: 0.95,
@@ -485,9 +486,8 @@ const Orrery = ()=>{
         '/textures/comet3.jpg',
         '/textures/comet4.jpg'
     ];
-    const slider = 5; // Number of planets to show
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        fetch('/orbitalData.json').then((response)=>response.json()).then((data)=>setOrbitalData(data.slice(0, slider + 8)))//.then((data) => setOrbitalData(data))
+        fetch('/orbitalData.json').then((response)=>response.json()).then((data)=>setOrbitalData(data)) // Load all data initially
         .catch((error)=>console.error('Error fetching data:', error));
     }, []);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
@@ -545,101 +545,105 @@ const Orrery = ()=>{
         controls.enableDamping = true;
         controls.dampingFactor = 0.25;
         controls.enableZoom = true;
-        controls.minDistance = 25; // Minimum zoom distance (how close you can zoom in) 75
+        controls.minDistance = 25; // Minimum zoom distance (how close you can zoom in)
         controls.maxDistance = 2500; // Maximum zoom distance (how far you can zoom out)
         const planets = [];
-        orbitalData.forEach((obj, index)=>{
-            const { e, q_au_1, i_deg, longitudeOfAscendingNode, object_name, p_yr, rotation_period } = obj;
-            // Calculate orbit points
-            const a = parseFloat(q_au_1) / (1 - e) * orbitScaleFactor;
-            const b = a * Math.sqrt(1 - e * e);
-            const points = [];
-            for(let i = 0; i <= 1000; i++){
-                const theta = i / 1000 * Math.PI * 2;
-                const x = a * Math.cos(theta);
-                const y = b * Math.sin(theta);
-                points.push(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Vector3(x, y, 0));
-            }
-            // Orbit Line
-            const orbitGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.BufferGeometry().setFromPoints(points);
-            const orbitMaterial = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.LineBasicMaterial({
-                color: 0x888888
-            });
-            const orbitLine = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Line(orbitGeometry, orbitMaterial);
-            // Orbit Group
-            const orbitGroup = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Group();
-            orbitGroup.add(orbitLine);
-            orbitGroup.rotation.z = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MathUtils.degToRad(longitudeOfAscendingNode || 0);
-            orbitGroup.rotation.x = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MathUtils.degToRad(i_deg || 0);
-            scene.add(orbitGroup);
-            let texture;
-            if (object_name.includes('Earth')) texture = loadTexture('/textures/earth.jpg');
-            else if (object_name.includes('Mars')) texture = loadTexture('/textures/mars.jpg');
-            else if (object_name.includes('Jupiter')) texture = loadTexture('/textures/jupiter.jpg');
-            else if (object_name.includes('Mercury')) texture = loadTexture('/textures/mercury.jpg');
-            else if (object_name.includes('Venus')) texture = loadTexture('/textures/venus.jpg');
-            else if (object_name.includes('Uranus')) texture = loadTexture('/textures/uranus.jpg');
-            else if (object_name.includes('Neptune')) texture = loadTexture('/textures/neptune.jpg');
-            else if (object_name.includes('Saturn')) texture = loadTexture('/textures/saturn.jpg');
-            else {
-                const randomIndex = Math.floor(Math.random() * cometTextures.length);
-                texture = loadTexture(cometTextures[randomIndex]);
-            }
-            const sizeFactor = planetSizes[object_name] || 1;
-            const planetGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.SphereGeometry(5 * sizeFactor, 32, 32);
-            const planetMaterial = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MeshStandardMaterial({
-                map: texture,
-                metalness: 0.5,
-                roughness: 0.3
-            });
-            const planet = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Mesh(planetGeometry, planetMaterial);
-            scene.add(planet);
-            // Add Moon for Earth
-            let moon;
-            if (object_name.includes('Earth')) {
-                const moonTexture = loadTexture('/textures/moon.jpg');
-                const moonGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.SphereGeometry(5 * planetSizes['moon'], 32, 32);
-                const moonMaterial = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MeshStandardMaterial({
-                    map: moonTexture,
-                    metalness: 0.1,
-                    roughness: 0.7
+        const createPlanets1 = (dataToDisplay)=>{
+            dataToDisplay.forEach((obj)=>{
+                const { e, q_au_1, i_deg, longitudeOfAscendingNode, object_name, p_yr, rotation_period } = obj;
+                // Calculate orbit points
+                const a = parseFloat(q_au_1) / (1 - e) * orbitScaleFactor;
+                const b = a * Math.sqrt(1 - e * e);
+                const points = [];
+                for(let i = 0; i <= 1000; i++){
+                    const theta = i / 1000 * Math.PI * 2;
+                    const x = a * Math.cos(theta);
+                    const y = b * Math.sin(theta);
+                    points.push(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Vector3(x, y, 0));
+                }
+                // Orbit Line
+                const orbitGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.BufferGeometry().setFromPoints(points);
+                const orbitMaterial = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.LineBasicMaterial({
+                    color: 0x888888
                 });
-                moon = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Mesh(moonGeometry, moonMaterial);
-                planet.add(moon);
-            }
-            let saturnRings;
-            if (object_name.includes('planet_Saturn')) {
-                const ringRadius = 100; // Radius of the torus
-                const tubeRadius = 35; // Thickness of the torus
-                // Create the torus geometry
-                const ringGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.TorusGeometry(ringRadius, tubeRadius, 2, 50000);
-                const ringMaterial = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MeshStandardMaterial({
-                    map: loadTexture('/textures/saturn-rings.png'),
-                    side: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.DoubleSide,
-                    transparent: true
+                const orbitLine = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Line(orbitGeometry, orbitMaterial);
+                // Orbit Group
+                const orbitGroup = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Group();
+                orbitGroup.add(orbitLine);
+                orbitGroup.rotation.z = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MathUtils.degToRad(longitudeOfAscendingNode || 0);
+                orbitGroup.rotation.x = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MathUtils.degToRad(i_deg || 0);
+                scene.add(orbitGroup);
+                let texture;
+                if (object_name.includes('Earth')) texture = loadTexture('/textures/earth.jpg');
+                else if (object_name.includes('Mars')) texture = loadTexture('/textures/mars.jpg');
+                else if (object_name.includes('Jupiter')) texture = loadTexture('/textures/jupiter.jpg');
+                else if (object_name.includes('Mercury')) texture = loadTexture('/textures/mercury.jpg');
+                else if (object_name.includes('Venus')) texture = loadTexture('/textures/venus.jpg');
+                else if (object_name.includes('Uranus')) texture = loadTexture('/textures/uranus.jpg');
+                else if (object_name.includes('Neptune')) texture = loadTexture('/textures/neptune.jpg');
+                else if (object_name.includes('Saturn')) texture = loadTexture('/textures/saturn.jpg');
+                else {
+                    const randomIndex = Math.floor(Math.random() * cometTextures.length);
+                    texture = loadTexture(cometTextures[randomIndex]);
+                }
+                const sizeFactor = planetSizes[object_name] || 1;
+                const planetGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.SphereGeometry(5 * sizeFactor, 32, 32);
+                const planetMaterial = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MeshStandardMaterial({
+                    map: texture,
+                    metalness: 0.5,
+                    roughness: 0.3
                 });
-                saturnRings = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Mesh(ringGeometry, ringMaterial);
-                saturnRings.rotation.x = Math.PI / 1.7; // Rotate the ring to lie in the XZ plane
-                planet.add(saturnRings); // Attach the torus to Saturn
-            }
-            const rotationSpeed = 2 * Math.PI / (rotation_period * 60);
-            planets.push({
-                planet,
-                moon,
-                saturnRings,
-                orbitGroup,
-                points,
-                speed: 2 * Math.PI / Math.abs(parseFloat(p_yr)) * 0.05,
-                // speed: 0,
-                currentIndex: 0,
-                object_name,
-                rotationSpeed
+                const planet = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Mesh(planetGeometry, planetMaterial);
+                scene.add(planet);
+                // Add Moon for Earth
+                let moon;
+                if (object_name.includes('Earth')) {
+                    const moonTexture = loadTexture('/textures/moon.jpg');
+                    const moonGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.SphereGeometry(5 * planetSizes['moon'], 32, 32);
+                    const moonMaterial = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MeshStandardMaterial({
+                        map: moonTexture,
+                        metalness: 0.1,
+                        roughness: 0.7
+                    });
+                    moon = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Mesh(moonGeometry, moonMaterial);
+                    planet.add(moon);
+                }
+                let saturnRings;
+                if (object_name.includes('planet_Saturn')) {
+                    const ringRadius = 100; // Radius of the torus
+                    const tubeRadius = 35; // Thickness of the torus
+                    // Create the torus geometry
+                    const ringGeometry = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.TorusGeometry(ringRadius, tubeRadius, 2, 50000);
+                    const ringMaterial = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.MeshStandardMaterial({
+                        map: loadTexture('/textures/saturn-rings.png'),
+                        side: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.DoubleSide,
+                        transparent: true
+                    });
+                    saturnRings = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$module$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Mesh(ringGeometry, ringMaterial);
+                    saturnRings.rotation.x = Math.PI / 1.7; // Rotate the ring to lie in the XZ plane
+                    planet.add(saturnRings); // Attach the torus
+                    planet.add(saturnRings); // Attach the torus to Saturn
+                }
+                const rotationSpeed = 2 * Math.PI / (rotation_period * 60);
+                planets.push({
+                    planet,
+                    moon,
+                    saturnRings,
+                    orbitGroup,
+                    points,
+                    speed: 2 * Math.PI / Math.abs(parseFloat(p_yr)) * 0.05,
+                    currentIndex: 0,
+                    object_name,
+                    rotationSpeed
+                });
             });
-        });
+        };
+        // Create planets based on the initial slider value
+        createPlanets1(orbitalData.slice(0, sliderValue + 8));
         const animate = ()=>{
             requestAnimationFrame(animate);
             planets.forEach((data)=>{
-                const { planet, points, orbitGroup, speed, moon, saturnRings, object_name, rotationSpeed } = data;
+                const { planet, points, orbitGroup, speed, moon, object_name } = data;
                 data.currentIndex = (data.currentIndex + speed) % points.length;
                 const point1 = points[Math.floor(data.currentIndex)];
                 const point2 = points[Math.ceil(data.currentIndex) % points.length];
@@ -665,17 +669,78 @@ const Orrery = ()=>{
         };
         animate();
         return ()=>{
-            mountRef.current.removeChild(renderer.domElement);
+            if (mountRef.current) {
+                mountRef.current.removeChild(renderer.domElement);
+            }
         };
     }, [
-        orbitalData
-    ]);
+        orbitalData,
+        sliderValue
+    ]); // Re-run effect when sliderValue changes
+    const handleSliderChange = (event)=>{
+        setSliderValue(Number(event.target.value)); // Update slider value state
+        // Update planets displayed based on slider value
+        const updatedPlanets = orbitalData.slice(0, Number(event.target.value) + 8);
+        // Clear previous planets and recreate them
+        const planets = [];
+        createPlanets(updatedPlanets);
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        ref: mountRef
-    }, void 0, false, {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                ref: mountRef
+            }, void 0, false, {
+                fileName: "[project]/app/(preview)/components/Orrery.jsx",
+                lineNumber: 282,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                style: {
+                    position: 'absolute',
+                    top: 20,
+                    left: 20,
+                    zIndex: 10
+                },
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                        style: {
+                            color: 'white'
+                        },
+                        children: [
+                            "Number of Planets/Comets: ",
+                            sliderValue
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/(preview)/components/Orrery.jsx",
+                        lineNumber: 284,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$future$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                        type: "range",
+                        min: "1",
+                        max: orbitalData.length - 8,
+                        value: sliderValue,
+                        onChange: handleSliderChange,
+                        style: {
+                            marginLeft: '10px',
+                            width: '300px'
+                        }
+                    }, void 0, false, {
+                        fileName: "[project]/app/(preview)/components/Orrery.jsx",
+                        lineNumber: 285,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/(preview)/components/Orrery.jsx",
+                lineNumber: 283,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "[project]/app/(preview)/components/Orrery.jsx",
-        lineNumber: 267,
-        columnNumber: 12
+        lineNumber: 281,
+        columnNumber: 9
     }, this);
 };
 const __TURBOPACK__default__export__ = Orrery;
