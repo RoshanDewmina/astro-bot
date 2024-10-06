@@ -4,7 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import PreviewCard from "./PreviewCard"; // Import the PreviewCard component
+import { Slider } from "@nextui-org/slider";
+import { Button, ButtonGroup } from "@nextui-org/button";
+import { CameraIcon } from "lucide-react";
 import { slider } from "@nextui-org/theme";
+import { Kbd } from "@nextui-org/kbd";
+import { Input } from "@nextui-org/input";
 
 const orbitScaleFactor = 175; // Adjusted for better spacing in scene
 
@@ -111,7 +116,7 @@ const Orrery = () => {
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
     controls.enableZoom = true;
-    controls.minDistance = 25;  // Minimum zoom distance (how close you can zoom in)
+    controls.minDistance = 25; // Minimum zoom distance (how close you can zoom in)
     controls.maxDistance = 2500; // Maximum zoom distance (how far you can zoom out)
     controlsRef.current = controls;
 
@@ -360,29 +365,37 @@ const Orrery = () => {
   const resetCamera = () => {
     console.log("Camera Reset");
     if (cameraRef.current && controlsRef.current) {
-        cameraRef.current.position.set(0, -400, 100); // Reset to your default position
-        cameraRef.current.lookAt(0, 0, 0); // Ensure camera looks at the center
-        controlsRef.current.reset(); // Reset the OrbitControls
+      cameraRef.current.position.set(0, -400, 100); // Reset to your default position
+      cameraRef.current.lookAt(0, 0, 0); // Ensure camera looks at the center
+      controlsRef.current.reset(); // Reset the OrbitControls
     }
-};
+  };
 
   return (
     <div>
       <div ref={mountRef} style={{ width: "100%", height: "100vh" }}></div>
-      <div style={{ position: "absolute", top: 20, left: 20, zIndex: 10 }}>
-      <button onClick={resetCamera}>Reset Camera</button>
-        <label style={{ color: "white" }}>
-          Number of Planets/Comets: {sliderValue}
-        </label>
-        <input
-          type="range"
-          min="1"
-          max={orbitalData.length - 8} // Adjust based on available data
-          value={sliderValue}
-          onChange={handleSliderChange}
-          style={{ marginLeft: "10px", width: "300px" }}
-        />
+      <div style={{ position: "absolute", bottom: 20, left: 20, zIndex: 10 }}>
+        <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+          <Button
+            onClick={resetCamera}
+            color="primary"
+            variant="shadow"
+            endContent={<CameraIcon />}
+          >
+            Reset Camera
+          </Button>
+          <Button isDisabled variant="flat">Number of Planets/Comets: {sliderValue}</Button>
+          <Input
+            type="range"
+            min="1"
+            max={orbitalData.length - 8} // Adjust based on available data
+            value={sliderValue}
+            onChange={handleSliderChange}
+            style={{ marginLeft: "10px", width: "150px" }}
+          />
+        </div>
       </div>
+
       {isCardVisible && selectedPlanet && (
         <PreviewCard planet={selectedPlanet} />
       )}

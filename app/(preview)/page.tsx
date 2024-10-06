@@ -86,7 +86,7 @@ export default function Chat() {
               </Button>
             </div>
             <div className="p-4">
-              <ProjectOverview />
+              {/* <ProjectOverview /> */}
               <motion.div
                 animate={{
                   minHeight: isExpanded ? 200 : 0,
