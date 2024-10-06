@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":["/turbopack/[project]/app/providers.tsx"],"sourcesContent":["// app/providers.tsx\n\"use client\";\n\nimport {NextUIProvider} from '@nextui-org/react'\n\nexport function Providers({children}: { children: React.ReactNode }) {\n  return (\n    <NextUIProvider>\n      {children}\n    </NextUIProvider>\n  )\n}"],"names":[],"mappings":"AAAA,oBAAoB;;;;;;;AACpB;;;AAIO,SAAS,UAAU,EAAC,QAAQ,EAAgC;IACjE,qBACE,6LAAC,0KAAA,CAAA,iBAAc;kBACZ;;;;;;AAGP;KANgB"}},
-    {"offset": {"line": 27, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}
