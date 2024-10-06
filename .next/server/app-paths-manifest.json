@@ -1,8 +1,4 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/(preview)/page": "app/(preview)/page.js",
-  "/(preview)/api/upload/route": "app/(preview)/api/upload/route.js",
-  "/(preview)/opengraph-image-1h4j0e.png/route": "app/(preview)/opengraph-image-1h4j0e.png/route.js",
   "/(preview)/api/chat/route": "app/(preview)/api/chat/route.js"
 }
