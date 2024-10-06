@@ -8089,7 +8089,7 @@ class Router {
         };
         if ("TURBOPACK compile-time truthy", 1) {
             const { BloomFilter } = __turbopack_require__("[project]/node_modules/next/dist/shared/lib/bloom-filter.js [client] (ecmascript)");
-            const routerFilterSValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":6,"errorRate":0.0001,"numBits":116,"numHashes":14,"bitArray":[1,1,1,0,1,0,1,0,1,0,0,1,1,1,1,1,0,1,0,1,0,0,1,1,0,0,1,0,1,0,0,0,1,1,1,1,0,0,1,1,1,0,1,0,0,0,0,0,0,0,1,1,1,1,1,0,1,1,1,1,0,0,0,1,0,1,1,0,0,1,0,1,1,1,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,1,1,0,0,1,0,0,0,1,1,0,0,0,1,0,1,1,1,1,1,0,1,1,0,1,1,1]}'));
+            const routerFilterSValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":5,"errorRate":0.0001,"numBits":96,"numHashes":14,"bitArray":[1,0,0,0,1,0,0,0,1,1,0,1,0,0,1,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,0,0,1,0,0,1,1,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,1,0,0,1,1,1,1,0,1,1,0,1,1,0,1,0,1,1,0,1,1,0,0,1,0,0,0,1,1,0,1,0,1,1,0,1,0,1,1,1,0]}'));
             const staticFilterData = routerFilterSValue ? routerFilterSValue : undefined;
             const routerFilterDValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":0,"errorRate":0.0001,"numBits":0,"numHashes":null,"bitArray":[]}'));
             const dynamicFilterData = routerFilterDValue ? routerFilterDValue : undefined;
@@ -9319,7 +9319,7 @@ function parseStack(stack) {
             const res = regexNextStatic.exec(url.pathname);
             if (res) {
                 var _process_env___NEXT_DIST_DIR_replace, _process_env___NEXT_DIST_DIR;
-                const distDir = (_process_env___NEXT_DIST_DIR = ("TURBOPACK compile-time value", "/Users/dewminaimalsha/Documents/GitHub/astro-bot/.next")) == null ? void 0 : (_process_env___NEXT_DIST_DIR_replace = _process_env___NEXT_DIST_DIR.replace(/\\/g, "/")) == null ? void 0 : _process_env___NEXT_DIST_DIR_replace.replace(/\/$/, "");
+                const distDir = (_process_env___NEXT_DIST_DIR = ("TURBOPACK compile-time value", "/Users/saadhumayun/Desktop/Test/astro-bot/.next")) == null ? void 0 : (_process_env___NEXT_DIST_DIR_replace = _process_env___NEXT_DIST_DIR.replace(/\\/g, "/")) == null ? void 0 : _process_env___NEXT_DIST_DIR_replace.replace(/\/$/, "");
                 if (distDir) {
                     frame.file = "file://" + distDir.concat(res.pop()) + url.search;
                 }
