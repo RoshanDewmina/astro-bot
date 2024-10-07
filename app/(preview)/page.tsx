@@ -12,7 +12,7 @@ import { LoadingIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import FileUpload from "@/components/fileUpload";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonGroup } from "@nextui-org/button";
 import { MessageCircle, X } from "lucide-react";
 import Orrery from "../(preview)/components/Orrery"; // Import the Orrery component
 
@@ -79,7 +79,7 @@ export default function Chat() {
               <h2 className="text-lg font-semibold dark:text-white">Chat</h2>
               <Button
                 variant="ghost"
-                size="icon"
+                size="sm"
                 onClick={() => setIsChatVisible(false)}
               >
                 <X className="h-6 w-6" />
@@ -146,8 +146,9 @@ export default function Chat() {
       </AnimatePresence>
       <Button
         className="fixed bottom-4 right-4 rounded-full shadow-lg"
-        size="icon"
+        size="md"
         onClick={() => setIsChatVisible(!isChatVisible)}
+        variant="shadow"
       >
         <MessageCircle className="h-6 w-6" />
       </Button>

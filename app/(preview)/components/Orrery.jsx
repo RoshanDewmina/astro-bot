@@ -4,18 +4,17 @@ import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import PreviewCard from "./PreviewCard"; // Import the PreviewCard component
-import { Slider } from "@nextui-org/slider";
+//import { slider } from "@nextui-org/theme";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { CameraIcon } from "lucide-react";
-import { slider } from "@nextui-org/theme";
-import { Kbd } from "@nextui-org/kbd";
-import { Input } from "@nextui-org/input";
+//import { Input } from "@nextui-org/input";
 
 const orbitScaleFactor = 175; // Adjusted for better spacing in scene
 
 const loadTexture = (path) => {
   return new THREE.TextureLoader().load(path);
 };
+
 
 const Orrery = () => {
   const mountRef = useRef(null);
@@ -116,7 +115,7 @@ const Orrery = () => {
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
     controls.enableZoom = true;
-    controls.minDistance = 25; // Minimum zoom distance (how close you can zoom in)
+    controls.minDistance = 25;  // Minimum zoom distance (how close you can zoom in)
     controls.maxDistance = 2500; // Maximum zoom distance (how far you can zoom out)
     controlsRef.current = controls;
 
@@ -354,53 +353,74 @@ const Orrery = () => {
   }, [orbitalData, sliderValue]);
 
   const handleSliderChange = (event) => {
-    setSliderValue(Number(event.target.value)); // Update slider value state
-    // Update planets displayed based on slider value
-    const updatedPlanets = orbitalData.slice(0, Number(event.target.value) + 8);
-    // Clear previous planets and recreate them
+    percentValue = setSliderValue(Number(event.target.value));
+    const updatedPlanets = orbitalData.slice(planets.length, Math.floor((((Number(event.target.value)) / 100) * 160)));
     const planets = [];
     createPlanets(updatedPlanets);
-  };
+    setSliderValue(percentValue); // Update slider value state
+};
 
   const resetCamera = () => {
     console.log("Camera Reset");
     if (cameraRef.current && controlsRef.current) {
-      cameraRef.current.position.set(0, -400, 100); // Reset to your default position
-      cameraRef.current.lookAt(0, 0, 0); // Ensure camera looks at the center
-      controlsRef.current.reset(); // Reset the OrbitControls
+        cameraRef.current.position.set(0, -400, 100); // Reset to your default position
+        cameraRef.current.lookAt(0, 0, 0); // Ensure camera looks at the center
+        controlsRef.current.reset(); // Reset the OrbitControls
     }
-  };
+};
+const getPlanetDataForCard = (planet) => {
+  if (!planet) return null;
+
+  // Check if the object is a planet or not
+  if (planet.object_name.startsWith("planet_")) {
+    // If it's a planet, return the planet data as is
+    return planet;
+  } else {
+    // If it's not a planet, assign a random comet texture
+    const randomIndex = Math.floor(Math.random() * cometTextures.length);
+    const cometTexture = cometTextures[randomIndex];
+
+    // Return the planet data with the comet texture
+    return {
+      ...planet,
+      texture: cometTexture, // Override texture with a random comet texture
+    };
+  }
+};
 
   return (
-    <div>
-      <div ref={mountRef} style={{ width: "100%", height: "100vh" }}></div>
-      <div style={{ position: "absolute", bottom: 20, left: 20, zIndex: 10 }}>
-        <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-          <Button
-            onClick={resetCamera}
-            color="primary"
-            variant="shadow"
-            endContent={<CameraIcon />}
-          >
-            Reset Camera
-          </Button>
-          <Button isDisabled variant="flat">Number of Planets/Comets: {sliderValue}</Button>
-          <Input
-            type="range"
-            min="1"
-            max={orbitalData.length - 8} // Adjust based on available data
-            value={sliderValue}
-            onChange={handleSliderChange}
-            style={{ marginLeft: "10px", width: "150px" }}
-          />
-        </div>
-      </div>
+  <div>
+  <div ref={mountRef} style={{ width: "100%", height: "100vh" }}></div>
+  <div style={{ position: "absolute", bottom: 20, left: 20, zIndex: 10 }}>
+    <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+      <Button
+        onClick={resetCamera}
+        color="primary"
+        variant="shadow"
+        endContent={<CameraIcon />}
+      >
+        Reset Camera
+      </Button>
 
-      {isCardVisible && selectedPlanet && (
-        <PreviewCard planet={selectedPlanet} />
-      )}
+      <Button isDisabled variant="flat" className="flex">
+        Object Count: {sliderValue}%
+      </Button>
+      <input
+          type="range"
+          min="0"
+          max="100"
+          step="25" // Step between 0, 25, 50, 75, and 100
+          value={sliderValue}
+          onChange={handleSliderChange}
+      />
     </div>
-  );
+  </div>
+
+  {isCardVisible && selectedPlanet && (
+    <PreviewCard planet={getPlanetDataForCard(selectedPlanet)} />
+  )}
+  </div>
+);
 };
 
 export default Orrery;
