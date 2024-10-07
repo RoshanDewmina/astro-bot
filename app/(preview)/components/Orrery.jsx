@@ -1,5 +1,7 @@
 "use client";
 
+
+
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -8,6 +10,7 @@ import PreviewCard from "./PreviewCard"; // Import the PreviewCard component
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { CameraIcon } from "lucide-react";
 //import { Input } from "@nextui-org/input";
+import App from "./header";
 
 const orbitScaleFactor = 175; // Adjusted for better spacing in scene
 
@@ -366,32 +369,28 @@ const Orrery = () => {
     console.log("Camera Reset");
     if (cameraRef.current && controlsRef.current) {
       cameraRef.current.position.set(0, -400, 100); // Reset to your default position
-      cameraRef.current.lookAt(0, 0, 0); // Ensure camera looks at the center
-      controlsRef.current.reset(); // Reset the OrbitControls
+      cameraRef.current.lookAt(0, 0, 0);
+      controlsRef.current.reset();
     }
   };
   const getPlanetDataForCard = (planet) => {
     if (!planet) return null;
 
-    // Check if the object is a planet or not
     if (planet.object_name.startsWith("planet_")) {
-      // If it's a planet, return the planet data as is
       return planet;
     } else {
-      // If it's not a planet, assign a random comet texture
       const randomIndex = Math.floor(Math.random() * cometTextures.length);
       const cometTexture = cometTextures[randomIndex];
-
-      // Return the planet data with the comet texture
       return {
         ...planet,
-        texture: cometTexture, // Override texture with a random comet texture
+        texture: cometTexture,
       };
     }
   };
 
   return (
-    <div>
+    <div className="overflow-hidden h-screen">
+      <App />
       <div ref={mountRef} style={{ width: "100%", height: "100vh" }}></div>
       <div style={{ position: "absolute", bottom: 20, left: 20, zIndex: 10 }}>
         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
