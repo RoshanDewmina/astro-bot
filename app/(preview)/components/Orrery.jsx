@@ -407,7 +407,7 @@ const Orrery = () => {
           <Button isDisabled variant="flat" className="flex">
             Object Count: {sliderValue}%
           </Button>
-          <div className="bg-white" style={{ padding: "10px" }}>
+          <div style={{ padding: "10px" }}>
             <input
               type="range"
               min="0"
