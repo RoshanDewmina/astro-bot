@@ -407,7 +407,7 @@ const Orrery = () => {
           <Button isDisabled variant="flat" className="flex">
             Object Count: {sliderValue}%
           </Button>
-          <div className="bg-white">
+          <div className="bg-white" style={{ padding: "10px" }}>
             <input
               type="range"
               min="0"
@@ -415,6 +415,17 @@ const Orrery = () => {
               step="25" // Step between 0, 25, 50, 75, and 100
               value={sliderValue}
               onChange={handleSliderChange}
+              style={{
+                appearance: "none",
+                width: "100%",
+                height: "15px",
+                borderRadius: "5px",
+                background: "#d3d3d3",
+                outline: "none",
+                opacity: "0.7",
+                transition: ".2s",
+                hover: "opacity: 1",
+              }}
             />
           </div>
         </div>
