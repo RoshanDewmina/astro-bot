@@ -11,7 +11,7 @@ import { RocketIcon } from "lucide-react";
 export default function App() {
   return (
     <Navbar>
-      <NavbarBrand>
+      <NavbarBrand className="flex p-6">
         <RocketIcon size={24} />
         <p className="font-bold text-inherit text-2xl text-pretty">Astro-Bot</p>
       </NavbarBrand>

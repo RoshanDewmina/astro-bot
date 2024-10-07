@@ -1,7 +1,5 @@
 "use client";
 
-
-
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -26,6 +24,7 @@ const Orrery = () => {
   const [selectedPlanet, setSelectedPlanet] = useState(null); // Manage the selected planet
   const [isCardVisible, setCardVisible] = useState(false); // Control card visibility
   const [sliderValue, setSliderValue] = useState(5); // Initial slider value
+  var isZoomed = false;
 
   const planetSizes = {
     planet_Mercury: 0.38,
@@ -37,6 +36,45 @@ const Orrery = () => {
     planet_Uranus: 4.01,
     planet_Neptune: 3.88,
     moon: 0.27,
+  };
+
+  const planetInitalPositions = {
+    planet_Mercury: new THREE.Vector3(
+      45.0369029274415,
+      50.22568014824859,
+      6.171387226757411
+    ),
+    planet_Venus: new THREE.Vector3(
+      29.162073445225456,
+      122.956059716119,
+      7.293543671083093
+    ),
+    planet_Earth: new THREE.Vector3(175.00142378866093, 0, 0),
+    planet_Mars: new THREE.Vector3(
+      172.93904782907615,
+      202.79540212264922,
+      6.550254316235355
+    ),
+    planet_Jupiter: new THREE.Vector3(
+      -166.94927289342442,
+      895.3112973560005,
+      20.364358165369453
+    ),
+    planet_Saturn: new THREE.Vector3(
+      -673.5884382514352,
+      1535.9421874032234,
+      66.76524477389832
+    ),
+    planet_Uranus: new THREE.Vector3(
+      953.8811252606614,
+      3392.552638746703,
+      45.53615756332551
+    ),
+    planet_Neptune: new THREE.Vector3(
+      -3418.032699164064,
+      3827.756947210635,
+      118.21908204933882
+    ),
   };
 
   const cometTextures = [
@@ -277,6 +315,29 @@ const Orrery = () => {
 
     createPlanets(orbitalData.slice(0, sliderValue + 8));
 
+    const getCurrentPlanetPosition = (planetData) => {
+      const { points, currentIndex, orbitGroup } = planetData;
+
+      // Get current point and next point in the orbit
+      const point1 = points[Math.floor(currentIndex)];
+      const point2 = points[Math.ceil(currentIndex) % points.length];
+
+      // Interpolation factor between the two points
+      const t = currentIndex % 1;
+
+      // Interpolate between the two points to get the current position
+      const interpolatedPosition = new THREE.Vector3().lerpVectors(
+        point1,
+        point2,
+        t
+      );
+
+      // Apply the orbitGroup's transformation to get the final world position
+      interpolatedPosition.applyMatrix4(orbitGroup.matrixWorld);
+
+      return interpolatedPosition;
+    };
+
     // Detect mouse clicks on planets
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
@@ -292,8 +353,46 @@ const Orrery = () => {
 
       if (intersects.length > 0) {
         const clickedPlanet = intersects[0].object;
+
+        // Set selected planet and display card
         clickedPlanet.onClick();
+        setSelectedPlanet(clickedPlanet.userData);
+        setCardVisible(true);
+
+        // Find planet index and adjust camera
+        planets.forEach((planetData) => {
+          if (planetData.planet === clickedPlanet) {
+            const { object_name } = planetData;
+
+            // Log the clicked planet
+            console.log(`${object_name} clicked`);
+
+            // Get the planet's current interpolated position
+            const planetCurrentPosition = getCurrentPlanetPosition(planetData);
+
+            // Calculate the offset direction based on the planet's position relative to the origin (sun)
+            const offsetDirection = planetCurrentPosition.clone().normalize();
+
+            // Use the planet size to adjust the zoom level
+            const planetSize = planetSizes[object_name] || 1; // Default to 1 if size not found
+            const baseDistanceFactor = 50; // Base distance factor (adjust as needed)
+            const distanceFactor = baseDistanceFactor * planetSize + 10; // Scale distance by planet size
+
+            // Adjust the camera position by moving away from the planet along the offset direction
+            const cameraPosition = planetCurrentPosition
+              .clone()
+              .addScaledVector(offsetDirection, distanceFactor);
+
+            // Move the camera to the calculated position and look at the planet
+            cameraRef.current.position.copy(cameraPosition);
+            cameraRef.current.lookAt(planetCurrentPosition);
+
+            isZoomed = true; // Flag zoom state
+          }
+        });
       } else {
+        // Clicked outside of planets: reset zoom and hide the card
+        isZoomed = false;
         setCardVisible(false);
         setSelectedPlanet(null);
       }
@@ -306,19 +405,21 @@ const Orrery = () => {
 
       planets.forEach((data) => {
         const { planet, points, orbitGroup, speed, moon, object_name } = data;
-        data.currentIndex = (data.currentIndex + speed) % points.length;
-        const point1 = points[Math.floor(data.currentIndex)];
-        const point2 = points[Math.ceil(data.currentIndex) % points.length];
-        const t = data.currentIndex % 1;
+        if (!isZoomed) {
+          data.currentIndex = (data.currentIndex + speed) % points.length;
+          const point1 = points[Math.floor(data.currentIndex)];
+          const point2 = points[Math.ceil(data.currentIndex) % points.length];
+          const t = data.currentIndex % 1;
 
-        // Smooth position interpolation
-        const interpolatedPosition = new THREE.Vector3().lerpVectors(
-          point1,
-          point2,
-          t
-        );
-        planet.position.copy(interpolatedPosition);
-        planet.position.applyMatrix4(orbitGroup.matrixWorld); // Apply orbital transformations
+          // Smooth position interpolation
+          const interpolatedPosition = new THREE.Vector3().lerpVectors(
+            point1,
+            point2,
+            t
+          );
+          planet.position.copy(interpolatedPosition);
+          planet.position.applyMatrix4(orbitGroup.matrixWorld); // Apply orbital transformations
+        }
 
         planet.rotation.x = 190;
 
@@ -390,8 +491,8 @@ const Orrery = () => {
 
   return (
     <div className="overflow-hidden h-screen">
-      <App />
       <div ref={mountRef} style={{ width: "100%", height: "100vh" }}></div>
+
       <div style={{ position: "absolute", bottom: 20, left: 20, zIndex: 10 }}>
         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
           <Button
@@ -428,6 +529,7 @@ const Orrery = () => {
             />
           </div>
         </div>
+        <App />
       </div>
 
       {isCardVisible && selectedPlanet && (

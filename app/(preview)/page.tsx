@@ -14,7 +14,8 @@ import { toast } from "sonner";
 import FileUpload from "@/components/fileUpload";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { MessageCircle, X } from "lucide-react";
-import Orrery from "../(preview)/components/Orrery"; // Import the Orrery component
+import Orrery from "../(preview)/components/Orrery";
+import App from "./components/header";
 
 export default function Chat() {
   const [toolCall, setToolCall] = useState<string>();
@@ -66,6 +67,7 @@ export default function Chat() {
 
   return (
     <div className="min-h-screen w-full dark:bg-neutral-900 relative">
+       {/* <App /> */}
       <AnimatePresence>
         {isChatVisible && (
           <motion.div

@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import type { Metadata } from "next";
 import { Kbd } from "@nextui-org/react";
 
@@ -15,9 +15,9 @@ export default function RootLayout({
       <body>
         <Providers>
           {children}
-          <div className="flex items-center align-center">
+          {/* <div className="flex items-center align-center">
             <Kbd>Made with ❤️ by Roshan and Cs Friends</Kbd>
-          </div>
+          </div> */}
         </Providers>
       </body>
     </html>
